@@ -1,9 +1,9 @@
 from django.db import models
 from notifications.signals import notify
-from django.conf import settings
+from django_notifications_views.app_settings import api_settings as settings
 
 
-if settings.USE_EXPO_NOTIFICATIONS:
+if settings.get_user_setting('USE_EXPO_NOTIFICATIONS'):
     from django_notifications_views.expo_utils import expo_push_notification_handler
     class ExpoToken(models.Model):
         token = models.CharField(max_length=200)

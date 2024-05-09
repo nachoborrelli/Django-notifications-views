@@ -4,9 +4,13 @@ from rest_framework import filters as rest_filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import ValidationError
+
 from django_filters import rest_framework as filters
 
 from django_notifications_views.serializers import NotificationSerializer
+from django_notifications_views.app_settings import api_settings as settings
 
 
 class NotificationsViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
@@ -45,3 +49,40 @@ class NotificationsViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
             notification.unread = False
             notification.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+if settings.get_user_setting('USE_EXPO_NOTIFICATIONS'):
+    from django_notifications_views.models import ExpoToken
+    class ManageDeviceExpo(GenericViewSet):
+        permission_classes = [IsAuthenticated]
+
+        @action(detail=False, url_path="register-device", methods=["POST"])
+        def register_device(self, request, *args, **kwargs):
+            user = request.user
+
+            token = request.data.get("token")
+            if not token:
+                raise ValidationError("'token' is required")
+
+            ExpoToken.objects.update_or_create(user=user, token=token)
+
+            # Remove oldest token if user exceeds token limit
+            token_count = ExpoToken.objects.filter(user=user).count()
+            if token_count > 10:
+                oldest_token = ExpoToken.objects.filter(user=user).order_by("created_at").first()
+                oldest_token.delete()
+
+            return Response("token saved successfully")
+
+
+        @action(detail=False, url_path="unregister-device", methods=["POST"])
+        def unregister_device(self, request, *args, **kwargs):
+            user = request.user
+
+            token = request.data.get("token")
+            if not token:
+                raise ValidationError("token is required")
+
+            ExpoToken.objects.filter(user=user, token=token).delete()
+
+            return Response("token deleted successfully")

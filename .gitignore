@@ -1,0 +1,3 @@
+venv
+dist
+django_notifications_views.egg-info

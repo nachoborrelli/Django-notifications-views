@@ -26,7 +26,7 @@ setup(
         'Django>=3.8.0',
         'pandas>=2.2.0',
         'requests>=2.30',
-        'exponent-server-sdk~=2.0.0'
+        'exponent-server-sdk~=2.0.0',
         'django-notifications-hq~=1.8.0',
     ],
     include_package_data=True,

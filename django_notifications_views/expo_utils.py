@@ -4,9 +4,9 @@ from exponent_server_sdk import (
     PushMessage,
     PushTicketError,
 )
-from django.conf import settings
+from django_notifications_views.app_settings import api_settings as settings
 
-if settings.USE_EXPO_NOTIFICATIONS:
+if settings.get_user_setting('USE_EXPO_NOTIFICATIONS'):
     def send_push_message(token, message, data=None):
         """
         Send push notification to expo token associated with user.
