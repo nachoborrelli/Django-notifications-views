@@ -4,7 +4,8 @@ USER_SETTINGS = getattr(settings, "DJANGO_NOTIFICATIONS_VIEWS", None)
 
 DEFAULTS = {
     'USE_EXPO_NOTIFICATIONS': False,
-    'EXPO_APP_ID': '', 
+    'EXPO_APP_ID': '',
+    'ENABLE_AUTO_DELETE_NOTIFICATIONS': False,
 }
 
 class APISettings:
