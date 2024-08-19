@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Verificar si la opción de autoeliminar notificaciones está habilitada en la configuración
-        if not settings.DJANGO_NOTIFICATIONS_VIEWS.get('ENABLE_AUTO_DELETE_NOTIFICATIONS', False):
+        if not settings.DJANGO_NOTIFICATIONS_VIEWS.get('AUTO_DELETE_NOTIFICATIONS', False):
             self.stdout.write("Auto delete notifications is disabled.")
             return
 
