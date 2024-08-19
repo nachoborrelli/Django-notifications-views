@@ -6,6 +6,7 @@ DEFAULTS = {
     'USE_EXPO_NOTIFICATIONS': False,
     'EXPO_APP_ID': '',
     'AUTO_DELETE_NOTIFICATIONS': False,
+    'NOTIFICATIONS_DELETE_DAYS': 30,
 }
 
 class APISettings:
