@@ -12,7 +12,7 @@ CRON_JOB = f"{CRON_SCHEDULE} {COMMAND}"
 
 # Guardar el cron en un archivo temporal que se pueda utilizar en la configuración del contenedor
 def write_cron_job():
-    cron_file_path = os.path.join(settings.BASE_DIR, "notifications_cron")
+    cron_file_path = os.path.join("django_base", "notifications_cron")
     with open(cron_file_path, "w") as cron_file:
         cron_file.write(f"{CRON_JOB}\n")
     return cron_file_path
