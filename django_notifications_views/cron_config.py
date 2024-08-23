@@ -1,5 +1,11 @@
 from django.conf import settings
 import os
+from django.core.management import call_command
+
+CRONJOBS = [
+    ('* * * * *', call_command, ['delete_old_notifications']),
+]
+
 
 # Definir el comando para ejecutar
 COMMAND = "python manage.py delete_old_notifications"
