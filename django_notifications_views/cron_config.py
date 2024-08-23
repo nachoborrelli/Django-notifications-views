@@ -1,17 +1,12 @@
 from django.conf import settings
 import os
-from django.core.management import call_command
-
-CRONJOBS = [
-    ('* * * * *', call_command, ['delete_old_notifications']),
-]
-
 
 # Definir el comando para ejecutar
 COMMAND = "python manage.py delete_old_notifications"
 
 # Obtener la configuración del cron desde settings del proyecto
-CRON_SCHEDULE = getattr(settings, 'DJANGO_NOTIFICATIONS_VIEWS', {}).get('DJANGO_NOTIFICATIONS_CRON_SCHEDULE', '0 0 * * *')  
+CRON_SCHEDULE = getattr(settings, 'DJANGO_NOTIFICATIONS_CRON_SCHEDULE', '0 0 * * *')  # Default: todos los días a las 00:00
+
 # Crear la línea de cron
 CRON_JOB = f"{CRON_SCHEDULE} {COMMAND}"
 
