@@ -5,8 +5,7 @@ import os
 COMMAND = "python manage.py delete_old_notifications"
 
 # Obtener la configuración del cron desde settings del proyecto
-CRON_SCHEDULE = getattr(settings, 'DJANGO_NOTIFICATIONS_CRON_SCHEDULE', '* * * * *')  # Default: todos los días a las 00:00
-
+CRON_SCHEDULE = getattr(settings, 'DJANGO_NOTIFICATIONS_VIEWS', {}).get('DJANGO_NOTIFICATIONS_CRON_SCHEDULE', '0 0 * * *')  
 # Crear la línea de cron
 CRON_JOB = f"{CRON_SCHEDULE} {COMMAND}"
 
