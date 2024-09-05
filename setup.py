@@ -27,7 +27,7 @@ setup(
         'pandas>=2.2.0',
         'requests>=2.30',
         'exponent-server-sdk~=2.0.0',
-        'django-notifications-hq @ git+https://github.com/verdan/django-notifications.git@patch-1',
+        'django-notifications-hq @git+https://github.com/verdan/django-notifications.git@patch-1',
     ],
     include_package_data=True,
     python_requires='>=3.8',

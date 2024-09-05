@@ -9,6 +9,7 @@ DEFAULTS = {
     'NOTIFICATIONS_DELETE_DAYS': 30,
 }
 
+
 class APISettings:
     def __init__(self, user_settings=None, defaults=None):
         self.defaults = defaults
@@ -18,7 +19,8 @@ class APISettings:
     def __check_user_settings(self, user_settings):
         for setting in user_settings:
             if setting not in self.defaults:
-                raise RuntimeError(f"The {setting} setting is not a valid setting for DJANGO_NOTIFICATIONS_VIEWS.")
+                raise RuntimeError(
+                    f"The {setting} setting is not a valid setting for DJANGO_NOTIFICATIONS_VIEWS.")
 
         return user_settings
 
@@ -30,5 +32,3 @@ class APISettings:
 
 
 api_settings = APISettings(USER_SETTINGS, DEFAULTS)
-
-
